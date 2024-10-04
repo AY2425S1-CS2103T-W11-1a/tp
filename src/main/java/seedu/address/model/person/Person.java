@@ -20,6 +20,7 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Remark remark;
 
     // Data fields
     private final Address address;
@@ -35,10 +36,15 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.remark = new Remark("");
     }
 
     public Name getName() {
         return name;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     public Phone getPhone() {

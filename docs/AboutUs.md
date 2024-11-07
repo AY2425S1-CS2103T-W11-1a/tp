@@ -42,7 +42,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ### Lim Juntong
 
-<img src="images/lim_jt.png" width="200px">
+<img src="images/lim-jt.png" width="200px">
 
 [[github](http://github.com/lim-jt)]
 [[portfolio](team/johndoe.md)]

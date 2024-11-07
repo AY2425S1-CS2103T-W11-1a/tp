@@ -8,13 +8,14 @@ If you can type fast, Murphy's List can get your healthcare administrative tasks
     2. [Adding a Patient Profile](#adding-a-patient-profile--add)
     3. [Adding a Remark](#adding-a-remark-to-a-patient-profile--remark)
     4. [Adding an Appointment](#adding-an-appointment--appointment)
-    5. [Listing all profiles](#listing-all-patient-profiles--list)
+    5. [Changing Triage Stage](#changing-triage-stage--triage)
+    6. [Listing all profiles](#listing-all-patient-profiles--list)
     6. [Listing profiles by schedule](#listing-profiles-by-schedule--schedule)
     7. [Editing a patient profile](#editing-a-patient-profile--edit)
     8. [Locating patients by name](#locating-patients-by-name-find)
     9. [Logging patient information](#logging-patient-information--log)
     10. [Viewing patient information](#viewing-patient-information--view)
-    11. [Deleting patient profile](#deleting-a-patient-profile--delete)
+    12. [Deleting patient profile](#deleting-a-patient-profile--delete)
     12. [Clear all entries](#clearing-all-entries--clear)
     13. [Exiting the program](#exiting-the-program--exit)
 3. [FAQ](#faq)
@@ -38,15 +39,15 @@ If you can type fast, Murphy's List can get your healthcare administrative tasks
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com i/S1234567A a/John street, block 123, #01-01` : Adds a patient profile of a patient named `John Doe` to the Address Book.
+    * `add n/John Doe p/98765432 e/johnd@example.com i/S1234567A a/John street, block 123, #01-01 t/1` : Adds a patient profile of a patient named `John Doe` to the Address Book.
 
-   * `delete S1231231D` : Deletes the patient profile of the patient with `NRIC S1231231D`.
+    * `delete S1231231D` : Deletes the patient profile of the patient with `NRIC S1231231D`.
 
-   * `clear` : Deletes all patient profiles in the database.
+    * `clear` : Deletes all patient profiles in the database.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 6. Refer to the [Features](#features) below for details of each command.
 
@@ -69,8 +70,8 @@ If you can type fast, Murphy's List can get your healthcare administrative tasks
 
 * Parameters MUST be in order unless specified otherwise.<br>
 
-  * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `schedule`, `exit` and `clear`) will be ignored.<br>
-    e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+    * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `schedule`, `exit` and `clear`) will be ignored.<br>
+      e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
@@ -88,15 +89,15 @@ Format: `help`
 
 Adds a patient profile to the database.
 
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/NRIC a/ADDRESS [t/TAG]…​`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL i/NRIC a/ADDRESS t/TRIAGE [tag/TAG]…​`
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
 A patient profile can have any number of tags (including 0)
 </div>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com i/S1234567A a/John street, block 123, #01-01`
-* `add n/Betsy Crowe p/24681357 e/betsycrowe@example.com i/T1234567D a/Newgate Prison t/criminal t/friend`
+* `add n/John Doe p/98765432 e/johnd@example.com i/S1234567A a/John street, block 123, #01-01 t/2`
+* `add n/Betsy Crowe p/24681357 e/betsycrowe@example.com i/T1234567D a/Newgate Prison t/1 tag/criminal tag/friend`
 
 ### Adding a remark to a patient profile : `remark`
 
@@ -114,6 +115,28 @@ Adds the appointment date (in format DD-MM-YYYY HH:MM) of a patient to the patie
 
 Format: `appointment NRIC app/DD-MM-YYYY HH:MM`
 
+### Changing Triage Stage : `triage`
+
+Changes the existing triage stage of a patient to another stage. Stages are categorised from 1 to 5.
+
+Triaging stages follows the Phase of Illness Model:
+
+1 - Stable
+
+2 - Unstable
+
+3 - Deteriorating
+
+4 - Terminal
+
+5 - Bereaved
+
+Format: `triage NRIC t/TRIAGE`
+
+Example:
+* `triage S1234567A t/1`
+* `triage T1231231D t/3`
+
 ### Listing all patient profiles : `list`
 
 Shows a list of all patient profiles in the database.
@@ -130,14 +153,14 @@ Format: `schedule`
 
 Edits the details of the patient identified by the index number used in the displayed patient profile list. **Existing information will be overwritten by the input values**
 
-Format: `edit NRIC [n/NAME] [p/PHONE] [e/EMAIL] [i/NRIC] [a/ADDRESS] [t/TAG]…​`
+Format: `edit NRIC [n/NAME] [p/PHONE] [e/EMAIL] [i/NRIC] [a/ADDRESS] [t/TRIAGE] [tag/TAG]…​`
 
 * Edits the patient profile with the specified `NRIC`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the patient will be removed i.e. adding of tags is not cumulative.
 * You can remove all the patient’s tags by typing `t/` without
-    specifying any tags after it.
+  specifying any tags after it.
 
 Examples:
 *  `edit S1234567A p/91234567 e/johndoe@example.com` Edits the phone number and email address of the patient with `NRIC: S1234567A` to be `91234567` and `johndoe@example.com` respectively.
@@ -259,18 +282,19 @@ You can check your Java version by running `java -version` in the command termin
 
 ## Command summary
 
-| Action              | Format, Examples                                                                                                                                                                   |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL i/NRIC a/ADDRESS [t/TAG]…​` <br> e.g., `add n/Betsy Crowe p/24681357 e/betsycrowe@example.com i/T1234567D a/Newgate Prison t/criminal t/friend` |
-| **Add Remark**      | `remark NRIC r/REMARK` <br> e.g., `remark S1231231D r/allergic to seafood`                                                                                                         |
-| **Add Appointment** | `appointment NRIC app/DD-MM-YYYY HH:MM` <br> e.g., `appointment S1234567A app/25-12-2024 14:30`                                                                                    |
-| **Clear**           | `clear`                                                                                                                                                                            |
-| **Delete**          | `delete NRIC`<br> e.g., `delete S1234567A`                                                                                                                                         |
-| **Edit**            | `edit NRIC [n/NAME] [p/PHONE] [e/EMAIL] [i/NRIC] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                       |
-| **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                         |
-| **List**            | `list`                                                                                                                                                                             |
-| **Schedule**        | `schedule`                                                                                                                                                                         |
-| **Log**             | `log NRIC DD-MM-YYYY HH:MM INFO(non-empty)` <br> e.g., `log S1234567A 25-12-2024 14:30 Patient has been discharged`                                                                |                                             |
-| **View**            | `view`                                                                                                                                                                             |
-| **Help**            | `help`                                                                                                                                                                             |
-| **Exit**            | `exit`                                                                                                                                                                             |
+| Action              | Format, Examples                                                                                                                                                                              |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**             | `add n/NAME p/PHONE_NUMBER e/EMAIL i/NRIC a/ADDRESS t/TRIAGE [tag/TAG]…​` <br> e.g., `add n/Betsy Crowe p/24681357 e/betsycrowe@example.com i/T1234567D a/Newgate Prison t/criminal t/friend` |
+| **Add Remark**      | `remark NRIC r/REMARK` <br> e.g., `remark S1231231D r/allergic to seafood`                                                                                                                    |
+| **Add Appointment** | `appointment NRIC app/DD-MM-YYYY HH:MM` <br> e.g., `appointment S1234567A app/25-12-2024 14:30`                                                                                               |
+| **Change Triage**   | `triage NRIC t/TRIAGE` <br> e.g., `triage S1234567A t/1`                                                                                                                                      |
+| **Clear**           | `clear`                                                                                                                                                                                       |
+| **Delete**          | `delete NRIC`<br> e.g., `delete S1234567A`                                                                                                                                                    |
+| **Edit**            | `edit NRIC [n/NAME] [p/PHONE] [e/EMAIL] [i/NRIC] [a/ADDRESS] [t/TRIAGE] [tag/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                                     |
+| **Find**            | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                                                    |
+| **List**            | `list`                                                                                                                                                                                        |
+| **Schedule**        | `schedule`                                                                                                                                                                                    |
+| **Log**             | `log NRIC DD-MM-YYYY HH:MM INFO(non-empty)` <br> e.g., `log S1234567A 25-12-2024 14:30 Patient has been discharged`                                                                           |                                             |
+| **View**            | `view`                                                                                                                                                                                        |
+| **Help**            | `help`                                                                                                                                                                                        |
+| **Exit**            | `exit`                                                                                                                                                                                        |
